@@ -1,5 +1,5 @@
-from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import UniqueConstraint
@@ -8,8 +8,10 @@ User = get_user_model()
 
 
 class Ingredient(models.Model):
-    name = models.CharField('Название', unique=True, max_length=settings.LENGHT_MAX)
-    measurement_unit = models.CharField('Единица измерения', max_length=settings.LENGHT_MAX)
+    name = models.CharField('Название', unique=True,
+                            max_length=settings.LENGHT_MAX)
+    measurement_unit = models.CharField('Единица измерения',
+                                        max_length=settings.LENGHT_MAX)
 
     class Meta:
         verbose_name = 'Ингредиент'
@@ -21,7 +23,8 @@ class Ingredient(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField('Название', unique=True, max_length=settings.LENGHT_MAX)
+    name = models.CharField('Название', unique=True,
+                            max_length=settings.LENGHT_MAX)
     color = models.CharField(
         'Цветовой HEX-код',
         unique=True,
@@ -33,7 +36,8 @@ class Tag(models.Model):
             )
         ]
     )
-    slug = models.SlugField('Уникальный слаг', unique=True, max_length=settings.LENGHT_MAX)
+    slug = models.SlugField('Уникальный слаг', unique=True,
+                            max_length=settings.LENGHT_MAX)
 
     class Meta:
         verbose_name = 'Тег'
@@ -114,21 +118,26 @@ class IngredientInRecipe(models.Model):
         )
 
 
-class Favourite(models.Model):
+class UserRecipeAbstractBaseModel(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='favorites',
         verbose_name='Пользователь',
     )
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
-        related_name='favorites',
         verbose_name='Рецепт',
     )
 
     class Meta:
+        abstract = True
+
+
+class Favourite(UserRecipeAbstractBaseModel):
+
+    class Meta:
+        default_related_name = 'favourites'
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
         constraints = [
@@ -140,21 +149,10 @@ class Favourite(models.Model):
         return f'{self.user} добавил "{self.recipe}" в Избранное'
 
 
-class ShoppingCart(models.Model):
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='shopping_cart',
-        verbose_name='Пользователь',
-    )
-    recipe = models.ForeignKey(
-        Recipe,
-        on_delete=models.CASCADE,
-        related_name='shopping_cart',
-        verbose_name='Рецепт',
-    )
+class ShoppingCart(UserRecipeAbstractBaseModel):
 
     class Meta:
+        default_related_name = 'shopping_cart'
         verbose_name = 'Корзина покупок'
         verbose_name_plural = 'Корзина покупок'
         constraints = [
