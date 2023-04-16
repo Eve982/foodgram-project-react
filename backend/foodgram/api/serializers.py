@@ -30,8 +30,8 @@ class CustomUserSerializer(UserSerializer):
     class Meta:
         model = User
         fields = (
-            'email',
             'id',
+            'email',
             'username',
             'first_name',
             'last_name',
@@ -53,19 +53,19 @@ class SubscribeSerializer(CustomUserSerializer):
         fields = CustomUserSerializer.Meta.fields + (
             'recipes_count', 'recipes'
         )
-        read_only_fields = ('email', 'username')
+        read_only_fields = ('username', 'email')
 
     def validate(self, data):
         author = self.instance
         user = self.context.get('request').user
-        if Subscribe.objects.filter(author=author, user=user).exists():
-            raise ValidationError(
-                detail='Вы уже подписаны на этого пользователя!',
-                code=status.HTTP_400_BAD_REQUEST
-            )
         if user == author:
             raise ValidationError(
-                detail='Вы не можете подписаться на самого себя!',
+                detail='Нельзя подписываться на себя.',
+                code=status.HTTP_400_BAD_REQUEST
+            )
+        if Subscribe.objects.filter(author=author, user=user).exists():
+            raise ValidationError(
+                detail='Вы уже подписаны на этого пользователя.',
                 code=status.HTTP_400_BAD_REQUEST
             )
         return data
@@ -107,20 +107,19 @@ class RecipeReadSerializer(ModelSerializer):
         model = Recipe
         fields = (
             'id',
-            'tags',
-            'author',
-            'ingredients',
+			'author',
+   			'name',
+      		'ingredients',
+            'cooking_time',
+            'text',
+            'image',
             'is_favorited',
             'is_in_shopping_cart',
-            'name',
-            'image',
-            'text',
-            'cooking_time',
+            'tags',
         )
 
     def get_ingredients(self, obj):
-        recipe = obj
-        ingredients = recipe.ingredients.values(
+        ingredients = obj.ingredients.values(
             'id',
             'name',
             'measurement_unit',
@@ -160,20 +159,20 @@ class RecipeWriteSerializer(ModelSerializer):
         model = Recipe
         fields = (
             'id',
-            'tags',
-            'author',
-            'ingredients',
-            'name',
-            'image',
-            'text',
+			'author',
+   			'name',
+      		'ingredients',
             'cooking_time',
+            'text',
+            'image',
+            'tags',
         )
 
     def validate_ingredients(self, value):
         ingredients = value
         if not ingredients:
             raise ValidationError({
-                'ingredients': 'Нужен хотя бы один ингредиент!'
+                'ingredients': 'Рецепт должен содержать как минимум один ингридиент.'
             })
         ingredients_list = []
         for item in ingredients:
@@ -184,7 +183,7 @@ class RecipeWriteSerializer(ModelSerializer):
                 })
             if int(item['amount']) <= 0:
                 raise ValidationError({
-                    'amount': 'Количество ингредиента должно быть больше 0!'
+                    'amount': 'Это значение не должно быть равно нулю.'
                 })
             ingredients_list.append(ingredient)
         return value
@@ -193,13 +192,13 @@ class RecipeWriteSerializer(ModelSerializer):
         tags = value
         if not tags:
             raise ValidationError({
-                'tags': 'Нужно выбрать хотя бы один тег!'
+                'tags': 'Нужно добавить как минимум один тег.'
             })
         tags_list = []
         for tag in tags:
             if tag in tags_list:
                 raise ValidationError({
-                    'tags': 'Теги должны быть уникальными!'
+                    'tags': 'Этот тег уже добавлен.'
                 })
             tags_list.append(tag)
         return value

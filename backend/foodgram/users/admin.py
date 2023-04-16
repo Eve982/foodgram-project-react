@@ -7,8 +7,8 @@ from .models import Subscribe, User
 @admin.register(User)
 class UserAdmin(UserAdmin):
     list_display = (
-        'username',
         'id',
+        'username',
         'email',
         'first_name',
         'last_name',

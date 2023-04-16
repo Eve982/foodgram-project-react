@@ -7,11 +7,11 @@ from .models import (Favourite, Ingredient, IngredientInRecipe, Recipe,
 
 @admin.register(Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'author', 'added_in_favorites')
+    list_display = ('id', 'name', 'author', 'added_in_favorites')
     readonly_fields = ('added_in_favorites',)
-    list_filter = ('author', 'name', 'tags',)
+    list_filter = ('name', 'author', 'tags',)
 
-    @display(description='Количество в избранных')
+    @display(description='Избранных рецептов:')
     def added_in_favorites(self, obj):
         return obj.favorites.count()
 
