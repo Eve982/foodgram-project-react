@@ -69,6 +69,7 @@ jobs:
             cd foodgram-project-react/
             sudo docker-compose stop
             sudo docker-compose rm web
+            cd backend/
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -80,7 +81,7 @@ jobs:
             echo SECRET_KEY='${{ secrets.SECRET_KEY }}' >> .env
             echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
 
-            cd infra/
+            cd ../infra/
             sudo docker pull eve982/foodgram_backend:latest
             sudo docker pull eve982/foodgram_frontend:latest
             sudo docker-compose stop
