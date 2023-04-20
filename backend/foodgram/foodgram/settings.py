@@ -58,15 +58,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 6,
-
-    # 'DEFAULT_THROTTLE_CLASSES': [
-    #     'rest_framework.throttling.UserRateThrottle',
-    #     'rest_framework.throttling.AnonRateThrottle',
-    # ],
-    # 'DEFAULT_THROTTLE_RATES': {
-    #     'user': '10000/day',
-    #     'anon': '1000/day',
-    # }
 }
 
 if MODE == 'dev':
@@ -163,4 +154,5 @@ LENGHT_MAX = 200
 LENGHT_COLOR = 7
 INGREDIENT_MIN_AMOUNT = 1
 COOKING_TIME_MIN_VALUE = 1
+COOKING_TIME_MAX_VALUE = 4320
 COLOR_REGEX = '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'

@@ -1,31 +1,49 @@
 service_name := web
-docker_file_path := -f ./infra/docker-compose.yaml
+docker_file_path := -f ./infra/docker-compose.yml
 bash_command := exec $(service_name) python manage.py
 args = $(filter-out $@,$(MAKECMDGOALS))
 container_id := $$(docker-compose $(docker_file_path) ps -q $(service_name))
 
-run:
-	docker-compose $(docker_file_path) up -d --build
+isort:
+	isort /Users/olga/dev/foodgram-project-react/backend/
 
-rebuild:
-	docker-compose $(docker_file_path) up -d --build
+flake:
+	flake8 /Users/olga/dev/foodgram-project-react/backend/ --exclude=venv,migrations
+
+run:
+	python3 /Users/olga/dev/foodgram-project-react/backend/foodgram/manage.py runserver
+
+mm:
+	python3 /Users/olga/dev/foodgram-project-react/backend/foodgram/manage.py makemigrations
 
 migrate:
+	python3 /Users/olga/dev/foodgram-project-react/backend/foodgram/manage.py migrate
+
+createsuperuser:
+	python3 /Users/olga/dev/foodgram-project-react/backend/foodgram/manage.py createsuperuser
+
+docker_run:
+	docker-compose $(docker_file_path) up -d --build
+
+docker_rebuild:
+	docker-compose $(docker_file_path) up -d --build
+
+docker_migrate:
 	docker-compose $(docker_file_path) $(bash_command) migrate
 
-user:
+docker_superuser:
 	docker-compose $(docker_file_path) $(bash_command) createsuperuser
 
-stat:
+docker_stat:
 	docker-compose $(docker_file_path) $(bash_command) collectstatic --no-input
 
-stop:
+docker_stop:
 	docker-compose $(docker_file_path) down -v
 
-bd:
+copy_db:
 	docker cp ./infra/fixtures.json "$(container_id)":/app
 
-load:
+load_db:
 	docker-compose $(docker_file_path) $(bash_command) loaddata fixtures.json
 
 clist:

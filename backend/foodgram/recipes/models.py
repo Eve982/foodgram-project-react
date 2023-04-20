@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.validators import MinValueValidator, RegexValidator
+from django.core.validators import (MaxValueValidator, MinValueValidator,
+                                    RegexValidator)
 from django.db import models
 from django.db.models import UniqueConstraint
 
@@ -16,7 +17,7 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
-        ordering = ['name']
+        ordering = ['name', ]
 
     def __str__(self):
         return f'{self.name}, {self.measurement_unit}'
@@ -65,7 +66,12 @@ class Recipe(models.Model):
         'Время приготовления',
         validators=[MinValueValidator(
             settings.COOKING_TIME_MIN_VALUE,
-            message='Время приготовления не может быть равно нулю.')]
+            message='Время приготовления не может быть равно нулю.'),
+            MaxValueValidator(
+            settings.COOKING_TIME_MAX_VALUE,
+            message='Время приготовления не может превышать'
+            'максимальное значение.'
+        )]
     )
     ingredients = models.ManyToManyField(
         Ingredient,
@@ -80,7 +86,7 @@ class Recipe(models.Model):
     )
 
     class Meta:
-        ordering = ['-id']
+        ordering = ['-id', ]
         verbose_name = 'Рецепт'
         verbose_name_plural = 'Рецепты'
 
@@ -104,7 +110,12 @@ class IngredientInRecipe(models.Model):
         'Количество',
         validators=[MinValueValidator(
             settings.INGREDIENT_MIN_AMOUNT,
-            message='Это значение не должно быть равно нулю.')]
+            message='Это значение не должно быть равно нулю.'),
+            MaxValueValidator(
+            settings.COOKING_TIME_MAX_VALUE,
+            message='Время приготовления не может превышать'
+            'максимальное значение.'
+        )]
     )
 
     class Meta:
@@ -137,11 +148,11 @@ class UserRecipeAbstractBaseModel(models.Model):
 class Favourite(UserRecipeAbstractBaseModel):
 
     class Meta:
-        default_related_name = 'favourites'
+        default_related_name = 'favorites'
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
         constraints = [
-            UniqueConstraint(fields=['user', 'recipe'],
+            UniqueConstraint(fields=['user', 'recipe', ],
                              name='unique_favourite')
         ]
 
@@ -156,7 +167,7 @@ class ShoppingCart(UserRecipeAbstractBaseModel):
         verbose_name = 'Корзина покупок'
         verbose_name_plural = 'Корзина покупок'
         constraints = [
-            UniqueConstraint(fields=['user', 'recipe'],
+            UniqueConstraint(fields=['user', 'recipe', ],
                              name='unique_shopping_cart')
         ]
 
