@@ -66,10 +66,10 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd foodgram-project-react/
+            cd foodgram-project-react/infra/
             sudo docker-compose stop
             sudo docker-compose rm web
-            cd backend/
+            cd ../backend/
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
