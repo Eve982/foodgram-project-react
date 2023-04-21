@@ -5,7 +5,7 @@ args = $(filter-out $@,$(MAKECMDGOALS))
 container_id := $$(docker-compose $(docker_file_path) ps -q $(service_name))
 
 isort:
-	isort /Users/olga/dev/foodgram-project-react/backend/
+	isort /Users/olga/dev/foodgram-project-react/backend/ .
 
 flake:
 	flake8 /Users/olga/dev/foodgram-project-react/backend/ --exclude=venv,migrations

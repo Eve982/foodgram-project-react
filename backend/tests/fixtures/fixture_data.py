@@ -1,7 +1,7 @@
-import pytest
 import json
 
-from recipes.models import Ingredient, Tag, Recipe
+import pytest
+from recipes.models import Ingredient, Recipe, Tag
 
 
 @pytest.fixture
