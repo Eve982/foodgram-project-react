@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='secret')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
-MODE = config('MODE', cast=str, default='dev')
+MODE = config('MODE', default='dev', cast=str)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=list)
 
@@ -82,7 +82,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': config('DB_ENGINE'),
-            'NAME': config('DB_NAME'),
+            'NAME': config('POSTGRES_DB'),
             'USER': config('POSTGRES_USER'),
             'PASSWORD': config('POSTGRES_PASSWORD'),
             'HOST': config('DB_HOST'),
