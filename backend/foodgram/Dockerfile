@@ -1,5 +1,6 @@
 FROM python:3.11-slim
 WORKDIR /app
+RUN mkdir data
 COPY requirements.txt .
 RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY . ./
