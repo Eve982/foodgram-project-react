@@ -1,6 +1,6 @@
 ## **Описание проекта:**
 
-[![.github/workflows/yamdb_workflow.yml](https://github.com/Eve982/foodgram_project_react/actions/workflows/foodgram_workflow.yml/badge.svg)](https://github.com/Eve982/foodgram_project_react/actions/workflows/foodgram_workflow.yml)
+[![.github/workflows/foodgram_workflow.yml](https://github.com/Eve982/foodgram_project_react/actions/workflows/foodgram_workflow.yml/badge.svg)](https://github.com/Eve982/foodgram_project_react/actions/workflows/foodgram_workflow.yml)
 
 Проект представляет собой сайт с рецептами, где пользователи могут просматривать, добавлять и комментировать рецепты, а также подписываться на любимых авторов, публиковать рецепты и добавлять рецепты в свой список избранного. Также, для авторизованых пользователей, есть возможность добавлять и удалять рецепты из списка покупок, а также скачивать итоговый список всех необходимых ингридиентов для выбранных рецептов (покупок). При создании рецепта ему можно добавлять теги для удобства поиска и фильтрации.
 <!-- - публиковать/удалять рецепты, добавлять теги своим рецептам;

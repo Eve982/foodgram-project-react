@@ -9,7 +9,7 @@ User = get_user_model()
 
 
 class Ingredient(models.Model):
-    name = models.CharField('Название', unique=True,
+    name = models.CharField('Название',
                             max_length=settings.LENGHT_MAX)
     measurement_unit = models.CharField('Единица измерения',
                                         max_length=settings.LENGHT_MAX)
@@ -21,6 +21,11 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return f'{self.name}, {self.measurement_unit}'
+
+
+class IngredientImport(models.Model):
+    csv_file = models.FileField(upload_to='uploads/')
+    date_added = models.DateTimeField(auto_now_add=True)
 
 
 class Tag(models.Model):

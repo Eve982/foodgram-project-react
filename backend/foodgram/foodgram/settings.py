@@ -4,7 +4,6 @@ from pathlib import Path
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = config('SECRET_KEY', default='secret')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -60,6 +59,18 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 6,
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1',
+    'http://127.0.0.1:80',
+    'http://127.0.0.1:8000',
+    'http://localhost',
+    'http://localhost:3000',
+    'http://158.160.50.184',
+    'http://ola.sytes.net',
+    'https://158.160.50.184',
+    'https://ola.sytes.net',
+    ]
+
 if MODE == 'dev':
     DATABASES = {
         'default': {
@@ -79,10 +90,11 @@ else:
         }
     }
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates/')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
