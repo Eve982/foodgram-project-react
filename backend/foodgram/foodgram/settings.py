@@ -69,7 +69,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://ola.sytes.net',
     'https://158.160.50.184',
     'https://ola.sytes.net',
-    ]
+]
 
 if MODE == 'dev':
     DATABASES = {

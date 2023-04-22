@@ -1,6 +1,5 @@
 import csv
 
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.db import IntegrityError
 from recipes.models import Ingredient
@@ -21,14 +20,15 @@ class Command(BaseCommand):
             'r',
             encoding='utf-8'
         ) as csv_file:
-            reader = csv.DictReader(csv_file, fieldnames=['name', 'measurement_unit'])
-            
+            reader = csv.DictReader(csv_file, fieldnames=['name',
+                                                          'measurement_unit'])
+
             try:
                 ingredient_objs = [Ingredient(**item)
-                       for item in reader]
-                
+                                   for item in reader]
+
                 Ingredient.objects.bulk_create(ingredient_objs)
-                
+
             except IntegrityError:
                 return 'Такие ингредиенты уже есть...'
         return (
