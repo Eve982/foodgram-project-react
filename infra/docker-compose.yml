@@ -10,7 +10,6 @@ services:
 
   backend:
     image: eve982/foodgram_backend:latest
-    # build: ../backend/foodgram/
     volumes:
       - static_value:/app/static/
       - media_value:/app/media/
