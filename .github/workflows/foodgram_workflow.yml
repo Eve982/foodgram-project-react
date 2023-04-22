@@ -66,10 +66,11 @@ jobs:
           script: |
             cd foodgram-project-react/
             git pull
-            
+
             cd backend/
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} > .env
+            echo MODE=prod >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
             echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
             echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
