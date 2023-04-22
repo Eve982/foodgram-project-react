@@ -23,11 +23,6 @@ class Ingredient(models.Model):
         return f'{self.name}, {self.measurement_unit}'
 
 
-class IngredientImport(models.Model):
-    csv_file = models.FileField(upload_to='uploads/')
-    date_added = models.DateTimeField(auto_now_add=True)
-
-
 class Tag(models.Model):
     name = models.CharField('Название', unique=True,
                             max_length=settings.LENGHT_MAX)
