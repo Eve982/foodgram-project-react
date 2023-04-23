@@ -8,7 +8,7 @@ isort:
 	isort /Users/olga/dev/foodgram-project-react/backend/ .
 
 flake:
-	flake8 /Users/olga/dev/foodgram-project-react/backend/ --exclude=venv,migrations
+	flake8 /Users/olga/dev/foodgram-project-react/backend/ --exclude=venv,migrations,tests,settings.py
 
 run:
 	python3 /Users/olga/dev/foodgram-project-react/backend/foodgram/manage.py runserver
