@@ -82,7 +82,7 @@ jobs:
 
             cd ../infra/
             sudo docker-compose stop
-            sudo docker image prune
+            sudo docker rmi $(sudo docker images -f "dangling=true" -q)
             sudo docker pull eve982/foodgram_backend:latest
             sudo docker pull eve982/foodgram_frontend:latest
             sudo docker-compose up -d --build

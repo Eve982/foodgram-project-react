@@ -38,7 +38,7 @@ docker_stat:
 	docker-compose $(docker_file_path) $(bash_command) collectstatic --no-input
 
 docker_stop:
-	docker-compose $(docker_file_path) down -v
+	docker-compose $(docker_file_path) down
 
 copy_db:
 	docker cp ./infra/fixtures.json "$(container_id)":/app
