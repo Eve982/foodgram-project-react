@@ -56,7 +56,7 @@ class Recipe(models.Model):
             RegexValidator(
                 regex=settings.RECIPE_REGEX,
                 message='Название рецепта не может состоять'
-                'только из цифр и символов.'
+                ' только из цифр и символов.'
             )
         ])
     author = models.ForeignKey(
