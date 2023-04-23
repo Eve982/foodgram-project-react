@@ -22,6 +22,14 @@ http://ola.sytes.net/api/docs/
 ```
 http://ola.sytes.net/admin/
 ```
+Логин для доступа к админ зоне:
+```
+test@test@test
+```
+Пароль для доступа к админ зоне:
+```
+test1234
+```
 
 ## **Как запустить проект:**
 Все команды необходимо выполнять в командной строке Вашего ПК. Первую команду следует выполнять в той локальной папке своего ПК, в которую Вы хотите склонировать проект из стороннего репозитория.
@@ -210,7 +218,7 @@ sudo docker exec -it infra-backend-1 bash
 ```
 Выполнить команду для сбороа статики:
 ```
-docker-compose exec backend python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input
 ```
 Проект успешно запущен на Вашем сервере!
 
@@ -224,3 +232,7 @@ ls -al ~/.ssh
 ```
 pbcopy < ~/.ssh/<название_ключа>
 ``` -->
+<!-- 
+docker-compose exec backend python manage.py collectstatic --no-input
+
+ -->
