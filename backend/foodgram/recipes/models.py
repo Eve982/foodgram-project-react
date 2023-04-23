@@ -49,7 +49,15 @@ class Tag(models.Model):
 
 
 class Recipe(models.Model):
-    name = models.CharField('Название', max_length=settings.LENGHT_MAX)
+    name = models.CharField(
+        'Название',
+        max_length=settings.LENGHT_MAX,
+        validators=[
+            RegexValidator(
+                regex=r'^[A-Za-zА-Яа-я]+$',
+                message='Название не может состоять только из цифр и знаков.'
+                )
+            ])
     author = models.ForeignKey(
         User,
         related_name='recipes',
