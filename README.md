@@ -234,5 +234,5 @@ pbcopy < ~/.ssh/<название_ключа>
 ``` -->
 <!-- 
 docker-compose exec backend python manage.py collectstatic --no-input
-
+sudo docker exec -it infra-backend-1 bash
  -->
