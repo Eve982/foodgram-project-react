@@ -83,7 +83,7 @@ docker-compose exec web python manage.py createsuperuser
 ```
 docker-compose exec web python manage.py collectstatic --no-input
 ```
-Проект запущен и доступен по адресу: [http://localhost/admin/](http://localhost/admin/)
+Проект запущен и доступен по адресу: [http://localhost/](http://localhost/)
 
 <!-- ### **Загрузка тестовых данных в БД**
 Узнать CONTAINER ID запущенных контейнеров можно выполнив команду:
@@ -126,9 +126,8 @@ docker-compose exec web python manage.py dumpdata > fixtures.json
 ``` -->
 ## **Шаблон наполнения env-файла:**
 
-Здесь нужно указать IP-адрес Вашего сервера и его доменное имя(при наличии):
 ```
-ALLOWED_HOSTS=['публичный_IP_адрес_сервера', 'example.syte.net', 'localhost', '*']
+ALLOWED_HOSTS=['*', 'localhost']
 ```
 Cекретный ключ, необходимый фреймворку Django для хэширования данных. Можно воспользоваться любым онлайн сервисом для генерации этого ключа:
 ```
@@ -150,8 +149,7 @@ DB_HOST=db
 ```
 DB_PORT=5432
 ```
-<!-- Стереть БД? -->
-<!-- Имя БД:
+Имя БД:
 ```
 POSTGRES_DB=foodgram
 ```
@@ -162,8 +160,12 @@ POSTGRES_USER=login
 Пароль для подключения к БД:
 ```
 POSTGRES_PASSWORD=password
-``` -->
+```
 <!-- Далее, перейдите на Вашу страницу GitHub(GitLab) в раздел 'Actions secrets and variables' и добавьте все указанные выше переменные. Кроме того, Вам нужно добавить еще несколько переменные:
+Здесь нужно указать IP-адрес Вашего сервера и его доменное имя(при наличии):
+```
+ALLOWED_HOSTS=['публичный_IP_адрес_сервера', 'example.syte.net', 'localhost', '*']
+```
 ```
 HOST=<публичный_IP_Вашего_сервера>
 ```
