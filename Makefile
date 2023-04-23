@@ -23,7 +23,7 @@ createsuperuser:
 	python3 /Users/olga/dev/foodgram-project-react/backend/foodgram/manage.py createsuperuser
 
 docker_run:
-	docker-compose $(docker_file_path) up -d --build
+	docker-compose $(docker_file_path) up --build
 
 docker_rebuild:
 	docker-compose $(docker_file_path) up -d --build
