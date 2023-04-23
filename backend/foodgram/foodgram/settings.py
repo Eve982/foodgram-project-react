@@ -167,5 +167,5 @@ LENGHT_COLOR = 7
 INGREDIENT_MIN_AMOUNT = 1
 COOKING_TIME_MIN_VALUE = 1
 COOKING_TIME_MAX_VALUE = 4320
-RECIPE_REGEX='^[A-Za-zА-Яа-я][ ,.!?].+[ ,.!?]$'
+RECIPE_REGEX='^[A-ZА-ЯЁ][a-zа-яё]*(\s|[,.?!])\s?[A-ZА-ЯЁ][a-zа-яё]*(\s|[,.?!])\s?([A-ZА-ЯЁ][a-zа-яё]*([,.?!]|$)\s?)*$'
 COLOR_REGEX ='^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$'
